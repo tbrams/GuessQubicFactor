@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GuessQubicFactor</string>
+    <string name="correct_answer">"Det rigtige svar var "</string>
+    <string name="highScore">Rekord</string>
+    <string name="score">Dine points</string>
+    <string name="instruction">Hvilket tal ganget med sig selv tre gange giver dette resultat?</string>
+    <string name="highScoreMsg">Ny rekord!!!</string>
+    <string name="action_settings">Indstillinger</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GuessQubicFactor</string>
+    <string name="action_settings">Settings</string>
+    <string name="correct_answer">"Correct answer was "</string>
+    <string name="highScore">highScore</string>
+    <string name="highScoreMsg">NEW HIGHSCORE!!!</string>
+    <string name="instruction">What number multiplied by itself three times gives this result?</string>
+    <string name="score">Your Score</string>
+</resources>

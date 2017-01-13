@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GuessQubicFactor</string>
+    <string name="correct_answer">คำตอบที่ถูกต้องคือ</string>
+    <string name="highScore">คะแนนสูง</string>
+    <string name="highScoreMsg">คะแนนสูงสุดใหม่!!!</string>
+    <string name="instruction">อะไรจำนวนคูณด้วยตัวเองสามครั้งให้ผลนี้หรือไม่?</string>
+    <string name="score">คะแนนของคุณ</string>
+    <string name="action_settings">Settings</string>
+</resources>
