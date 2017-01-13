@@ -13,39 +13,6 @@
     tools:context="dk.brams.android.guessqubicfactor.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <EditText
-        android:id="@+id/answer_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="\?"
-        android:inputType="number"
-        android:textSize="48sp"
-        android:width="60dp"
-        android:layout_below="@+id/big_number_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX="4"
-        android:scaleY="4"
-        android:id="@+id/imageGrade"
-        android:layout_below="@+id/answer_text"
-        android:layout_marginTop="115dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/big_number_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="888888"
-        android:textSize="48sp"
-        android:layout_marginTop="101dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorAccent"/>
-
     <TextView
         android:text="@string/instruction"
         android:layout_width="wrap_content"
@@ -73,12 +40,50 @@
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginEnd="18dp"
         android:id="@+id/text_score"
-        android:textColor="@color/icons"/>
+        android:textColor="@color/icons"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignRight="@+id/big_number_text"
+        android:layout_alignEnd="@+id/big_number_text"/>
+
+    <TextView
+        android:id="@+id/big_number_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="888888"
+        android:textSize="48sp"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="4"
+        android:scaleY="4"
+        android:id="@+id/imageGrade"
+        android:layout_marginRight="57dp"
+        android:layout_marginEnd="57dp"
+        android:layout_alignTop="@+id/answer_text"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginTop="13dp"/>
+
+    <EditText
+        android:id="@+id/answer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="\?"
+        android:inputType="number"
+        android:textSize="48sp"
+        android:width="60dp"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:layout_below="@+id/big_number_text"
+        android:layout_toLeftOf="@+id/text_score"
+        android:layout_toStartOf="@+id/text_score"/>
 
 </RelativeLayout>
