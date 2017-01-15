@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -18,19 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "TBR:";
-    private Activity mActivity=this;
+    private final Activity mActivity=this;
 
     private static int sSecret = 0;
     private static int sGood =0;
     private static int sBad =0;
     private static SharedPreferences sSharedPreferences;
-    private static EditText sAnswerField;
-    private static ImageView sImgView;
+    private EditText mAnswerField;
+    private ImageView mImgView;
+    private Animation mAnimation;
     private static MyRunnable sRunnable;
 
 
@@ -41,10 +44,37 @@ public class MainActivity extends AppCompatActivity {
 
         sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sRunnable = new MyRunnable(this);
-        sImgView = (ImageView) findViewById(R.id.imageGrade);
 
-        sAnswerField = (EditText) findViewById(R.id.answer_text);
-        sAnswerField.setOnKeyListener(new View.OnKeyListener()
+        mImgView = (ImageView) findViewById(R.id.imageGrade);
+        mAnimation = new AlphaAnimation(0.00f, 1.00f);
+        mAnimation.setDuration(100);
+        mAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.d(TAG, "onAnimationStart: ");
+                mAnimation.setRepeatMode(0);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                Log.d(TAG, "onAnimationRepeat: ");
+                animation.cancel();
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.d(TAG, "onAnimationEnd: trying to stop animation");
+                mImgView.setAnimation(null);
+            }
+        });
+
+        mImgView.setAnimation(mAnimation);
+
+        mAnswerField = (EditText) findViewById(R.id.answer_text);
+        mAnswerField.setOnKeyListener(new View.OnKeyListener()
         {
             public boolean onKey(View v, int keyCode, KeyEvent event)
             {
@@ -67,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new challenge and fill in fields
         newQuestion(this);
 
-        sImgView.setOnClickListener(new View.OnClickListener() {
+        mImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 processAnswer(view);
@@ -77,20 +107,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void processAnswer(View view) {
-        String answer= sAnswerField.getText().toString();
-        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+    private void processAnswer(View view) {
+        String answer= mAnswerField.getText().toString();
         if (!answer.equals("")) {
             if (Integer.parseInt(answer) == sSecret) {
-                sImgView.setBackgroundResource(R.mipmap.ic_thumbs_up);
+                mImgView.setBackgroundResource(R.mipmap.ic_thumbs_up);
                 sGood++;
             } else {
-                sImgView.setBackgroundResource(R.mipmap.ic_thumbs_down);
+                mImgView.setBackgroundResource(R.mipmap.ic_thumbs_down);
 
                 Snackbar.make(view, getString(R.string.correct_answer)+ sSecret, Snackbar.LENGTH_LONG).show();
                 sBad++;
             }
-            sImgView.startAnimation(animation1);
+            mImgView.startAnimation(mAnimation);
             updateScore(mActivity);
         }
 
@@ -125,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
     private static void newQuestion(Activity activity){
 
         // set the answer icon back
-        sImgView.setAnimation(null);
-        sImgView.setBackgroundResource(R.mipmap.ic_launcher);
+        ImageView imgView = (ImageView) activity.findViewById(R.id.imageGrade);
+        imgView.setAnimation(null);
+        imgView.setBackgroundResource(R.mipmap.ic_launcher);
 
 
         // Find a new secret number
@@ -135,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
         // set the big number
         TextView number = (TextView) activity.findViewById(R.id.big_number_text);
-        number.setText(Integer.toString(sSecret * sSecret * sSecret));
+        number.setText(String.format(Locale.ENGLISH, "%d", sSecret * sSecret * sSecret));
 
         // clear the previous answer
         EditText ans = (EditText) activity.findViewById(R.id.answer_text);
@@ -148,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     private static void updateScore(Activity activity) {
         TextView scoreField = (TextView) activity.findViewById(R.id.text_score);
         int score = sGood *10- sBad *20;
-        scoreField.setText(String.format("%d", score));
+        scoreField.setText(String.format(Locale.ENGLISH, "%d", score));
 
         int prevRecord = sSharedPreferences.getInt(activity.getString(R.string.highScore), 0);
         if (score>prevRecord) {

@@ -6,5 +6,4 @@
     <string name="score">Dine points</string>
     <string name="instruction">Hvilket tal ganget med sig selv tre gange giver dette resultat?</string>
     <string name="highScoreMsg">Ny rekord!!!</string>
-    <string name="action_settings">Indstillinger</string>
 </resources>

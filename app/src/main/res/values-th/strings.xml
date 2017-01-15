@@ -6,5 +6,4 @@
     <string name="highScoreMsg">คะแนนสูงสุดใหม่!!!</string>
     <string name="instruction">อะไรจำนวนคูณด้วยตัวเองสามครั้งให้ผลนี้หรือไม่?</string>
     <string name="score">คะแนนของคุณ</string>
-    <string name="action_settings">Settings</string>
 </resources>
