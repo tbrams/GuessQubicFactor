@@ -7,8 +7,11 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     void processAnswer(View view) {
         String answer= sAnswerField.getText().toString();
+        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         if (!answer.equals("")) {
             if (Integer.parseInt(answer) == sSecret) {
                 sImgView.setBackgroundResource(R.mipmap.ic_thumbs_up);
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, getString(R.string.correct_answer)+ sSecret, Snackbar.LENGTH_LONG).show();
                 sBad++;
             }
-
+            sImgView.startAnimation(animation1);
             updateScore(mActivity);
         }
 
@@ -121,8 +125,9 @@ public class MainActivity extends AppCompatActivity {
     private static void newQuestion(Activity activity){
 
         // set the answer icon back
-        ImageView img = (ImageView) activity.findViewById(R.id.imageGrade);
-        img.setBackgroundResource(R.mipmap.ic_launcher);
+        sImgView.setAnimation(null);
+        sImgView.setBackgroundResource(R.mipmap.ic_launcher);
+
 
         // Find a new secret number
         Random r = new Random();
